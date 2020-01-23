@@ -1,0 +1,139 @@
+\hypertarget{classsame_1_1_jugar_logica}{}\section{same.\+Jugar\+Logica Class Reference}
+\label{classsame_1_1_jugar_logica}\index{same.\+Jugar\+Logica@{same.\+Jugar\+Logica}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+boolean \hyperlink{classsame_1_1_jugar_logica_a5ec9d7b6c4662fc93a69793ea85608d6}{verificacion} (int i, int j, Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} arreglo)
+\item 
+boolean \hyperlink{classsame_1_1_jugar_logica_af70caf670071063ad7ac96d5a548b08b}{Verificar\+Arreglo} (int \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} arreglo)
+\item 
+int \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \hyperlink{classsame_1_1_jugar_logica_a021d188f57a9559187059e053aa2b951}{Nuevo\+Arreglo} (Image\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} arreglo\+\_\+logico, int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} adyacentes, int i, int j, Image color)
+\item 
+Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \hyperlink{classsame_1_1_jugar_logica_ab2800772a9d1be102afdec9f5b5dea1b}{Eliminar\+Adyacentes} (int\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} adyacentes, Image\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} arreglo)
+\item 
+Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \hyperlink{classsame_1_1_jugar_logica_a9cbb58eb8091d8eb851d6f962ba6f438}{Unir\+Botones\+Horizontal} (Image\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} arreglo)
+\item 
+Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \hyperlink{classsame_1_1_jugar_logica_a6631389e8edd1025e58997ad3322091f}{Unir\+Botones\+Vertical} (Image\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}arreglo)
+\item 
+int \hyperlink{classsame_1_1_jugar_logica_a24a1f8b23b9276240d46eebdfc3a88ba}{Verificar\+Partida} (Image\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}arreglo)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_ab2800772a9d1be102afdec9f5b5dea1b}\label{classsame_1_1_jugar_logica_ab2800772a9d1be102afdec9f5b5dea1b}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!Eliminar\+Adyacentes@{Eliminar\+Adyacentes}}
+\index{Eliminar\+Adyacentes@{Eliminar\+Adyacentes}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{Eliminar\+Adyacentes()}{EliminarAdyacentes()}}
+{\footnotesize\ttfamily Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} same.\+Jugar\+Logica.\+Eliminar\+Adyacentes (\begin{DoxyParamCaption}\item[{int}]{adyacentes\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{Image}]{arreglo\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+pone en nulo todos los vecinos encontrados del mismo color 
+\begin{DoxyParams}{Parameters}
+{\em adyacentes} & Matriz con todos los vecinos \\
+\hline
+{\em arreglo} & Matriz con las Imágenes del juego(\+Se ponen en nulo) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+retorna el arreglo de imágenes pero con los vecinos encontrados en nulo
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_a021d188f57a9559187059e053aa2b951}\label{classsame_1_1_jugar_logica_a021d188f57a9559187059e053aa2b951}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!Nuevo\+Arreglo@{Nuevo\+Arreglo}}
+\index{Nuevo\+Arreglo@{Nuevo\+Arreglo}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{Nuevo\+Arreglo()}{NuevoArreglo()}}
+{\footnotesize\ttfamily int \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} same.\+Jugar\+Logica.\+Nuevo\+Arreglo (\begin{DoxyParamCaption}\item[{Image}]{arreglo\+\_\+logico\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{int}]{adyacentes\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]},  }\item[{int}]{i,  }\item[{int}]{j,  }\item[{Image}]{color }\end{DoxyParamCaption})}
+
+El recorrido del backtracking, busca todos los vecinos en la matriz 
+\begin{DoxyParams}{Parameters}
+{\em arreglo\+\_\+logico} & Arreglo del juego en Imágenes \\
+\hline
+{\em adyacentes} & Arreglo donde se almacenan los adyacentes \\
+\hline
+{\em i} & posición en el arreglo \\
+\hline
+{\em j} & posición en el arreglo \\
+\hline
+{\em color} & Guarda el color que anda buscando \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+retorna el arreglo de adyacentes(vecinos)
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_a9cbb58eb8091d8eb851d6f962ba6f438}\label{classsame_1_1_jugar_logica_a9cbb58eb8091d8eb851d6f962ba6f438}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!Unir\+Botones\+Horizontal@{Unir\+Botones\+Horizontal}}
+\index{Unir\+Botones\+Horizontal@{Unir\+Botones\+Horizontal}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{Unir\+Botones\+Horizontal()}{UnirBotonesHorizontal()}}
+{\footnotesize\ttfamily Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} same.\+Jugar\+Logica.\+Unir\+Botones\+Horizontal (\begin{DoxyParamCaption}\item[{Image}]{arreglo\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Busca espacios nulos para que se puedan correr para abajo por medio de iteración 
+\begin{DoxyParams}{Parameters}
+{\em arreglo} & Matriz con las imágenes del juego \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retorna la misma matriz pero con las imágenes corridas como debe ser
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_a6631389e8edd1025e58997ad3322091f}\label{classsame_1_1_jugar_logica_a6631389e8edd1025e58997ad3322091f}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!Unir\+Botones\+Vertical@{Unir\+Botones\+Vertical}}
+\index{Unir\+Botones\+Vertical@{Unir\+Botones\+Vertical}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{Unir\+Botones\+Vertical()}{UnirBotonesVertical()}}
+{\footnotesize\ttfamily Image \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} same.\+Jugar\+Logica.\+Unir\+Botones\+Vertical (\begin{DoxyParamCaption}\item[{Imagearreglo}]{\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Une la matriz cuando encuentra columnas en blanco, las mueve a la izquierda 
+\begin{DoxyParams}{Parameters}
+{\em matriz} & Matriz que va ser corrida en caso de que encuentre espacios \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retorna la misma matriz pero alterada
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_a5ec9d7b6c4662fc93a69793ea85608d6}\label{classsame_1_1_jugar_logica_a5ec9d7b6c4662fc93a69793ea85608d6}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!verificacion@{verificacion}}
+\index{verificacion@{verificacion}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{verificacion()}{verificacion()}}
+{\footnotesize\ttfamily boolean same.\+Jugar\+Logica.\+verificacion (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j,  }\item[{Image}]{arreglo\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+verifica si la posición en la matriz es valida 
+\begin{DoxyParams}{Parameters}
+{\em i} & posición en la matriz \\
+\hline
+{\em j} & posición en la matriz \\
+\hline
+{\em arreglo} & Arreglo de imágenes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si es válido, false sino
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_af70caf670071063ad7ac96d5a548b08b}\label{classsame_1_1_jugar_logica_af70caf670071063ad7ac96d5a548b08b}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!Verificar\+Arreglo@{Verificar\+Arreglo}}
+\index{Verificar\+Arreglo@{Verificar\+Arreglo}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{Verificar\+Arreglo()}{VerificarArreglo()}}
+{\footnotesize\ttfamily boolean same.\+Jugar\+Logica.\+Verificar\+Arreglo (\begin{DoxyParamCaption}\item[{int}]{arreglo\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Verifica si hay ganador en el arreglo 
+\begin{DoxyParams}{Parameters}
+{\em arreglo} & El arreglo del juego \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si no hay ganador, false si ganó
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsame_1_1_jugar_logica_a24a1f8b23b9276240d46eebdfc3a88ba}\label{classsame_1_1_jugar_logica_a24a1f8b23b9276240d46eebdfc3a88ba}} 
+\index{same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}!Verificar\+Partida@{Verificar\+Partida}}
+\index{Verificar\+Partida@{Verificar\+Partida}!same\+::\+Jugar\+Logica@{same\+::\+Jugar\+Logica}}
+\subsubsection{\texorpdfstring{Verificar\+Partida()}{VerificarPartida()}}
+{\footnotesize\ttfamily int same.\+Jugar\+Logica.\+Verificar\+Partida (\begin{DoxyParamCaption}\item[{Imagearreglo}]{\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Verifica si existen jugadas existentes en el tablero 
+\begin{DoxyParams}{Parameters}
+{\em matriz} & Matriz con las imágenes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Retorna -\/1 si no hay jugadas existentes, 1 si se puede jugar
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/same/Jugar\+Logica.\+java\end{DoxyCompactItemize}

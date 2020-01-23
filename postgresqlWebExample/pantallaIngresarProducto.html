@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>Insertar Producto</title>
+  <link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+  <link rel="stylesheet" type="text/css" href="CSS/select.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
+  <style type="text/css">
+  
+  
+  </style>
+  
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body>
+<div id="header"></div>
+<div class="formEditar">
+<br>
+<h1>Producto</h1>
+
+
+
+	 
+<form  action="InsertarProducto.php" align="center">
+	
+		
+	
+	<br>
+	<br>
+	<input type="text" name="codigoProducto" placeholder="Codigo del producto" /><br>
+	<input type="text" name="nombre" placeholder="Nombre" /><br>
+	<input type="text" name="precio" placeholder="Precio" /><br>
+	
+	<br>
+	<br>
+
+	<div class="centro" align = "center">
+		 
+		<div class="select" style=" width: 15em;">
+			
+			<select name = "codigoTP">
+					
+					<?php
+						require("conexion.php");
+			
+						$consulta="SELECT codigo_tipoproducto FROM tipoproducto";
+						$resultado=pg_query($conexion,$consulta);
+						
+						echo '<option value= ".  1  "' . '  > Codigo del tipo de producto </option>';
+						
+						while($fila=pg_fetch_object($resultado)){
+							$data = $fila -> codigo_tipoproducto;
+							echo "<option value = $data >";
+							echo $data;
+							echo '</option>';
+						}
+						pg_close($conexion);
+						
+						?>
+
+			</select>
+		</div>
+	</div>
+
+	
+	<br>
+	
+	<button class="boton">Ingresar</button>  
+	</form>
+	
+	
+</div>
+
+</body>
+<div id="footer"></div>
+</html>
+
+
+
+
+
+
+
+

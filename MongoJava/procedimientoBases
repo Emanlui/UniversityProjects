@@ -1,0 +1,202 @@
+
+create or replace procedure proceso_datos as
+begin
+	DECLARE
+
+		orden number;
+		reino number;
+		filo number;
+		clase number;
+        familia number;
+		genero varchar(70);
+		especie varchar(70);
+        genero_id number;
+        especie_id number;
+		cientifico varchar(70);
+		id_esp number;
+	
+	begin
+	
+		for datos in (select * from tablatemp)
+			
+			loop
+			
+				cientifico := trim(datos.scientific_name);
+				especie := trim(substr(instr(cientifico, ' ') + 1, length(cientifico)));
+				genero := trim(substr(cientifico, instr(cientifico, ' ') + 1));
+	
+				
+				reino := insertarReino(datos.kingdom);
+				filo := insertarFilo(reino, datos.phylum);
+				clase := insertarClase(filo, datos.class_);
+				orden := insertarOrden(clase, datos.order_);
+				familia := insertarFamilia(orden, datos.family);
+				genero_id := insertarGenero(familia, genero);
+				insert into especie(nombre, id_gen) values (genero_id, especie);
+	
+			end loop;
+	end;
+end;
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+create or replace function insertarReino(nombre_var varchar) return number as
+
+foreign_id number;
+
+begin
+
+select id_reino into foreign_id from reino where nombre = nombre_var; 
+return (foreign_id);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    insert into reino(nombre) values (nombre_var);
+    select id_reino into foreign_id from reino where nombre = nombre_var; 
+    return (foreign_id);
+    end;
+end;
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+create or replace function insertarFilo(r_foreign_id number, nombre_var varchar) return number as
+
+foreign_id number;
+
+begin
+
+select id_filo into foreign_id from filo where nombre = nombre_var; 
+return (foreign_id);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    insert into filo(nombre, id_reino) values (nombre_var, r_foreign_id);
+    select id_filo into foreign_id from filo where nombre = nombre_var; 
+    return (foreign_id);
+    end;
+end;
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+create or replace function insertarClase(f_foreign_id number, nombre_var varchar) return number as
+
+foreign_id number;
+
+begin
+
+select id_clase into foreign_id from clase where nombre = nombre_var; 
+return (foreign_id);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    insert into clase(nombre, id_filo) values (nombre_var, f_foreign_id);
+    select id_clase into foreign_id from clase where nombre = nombre_var; 
+    return (foreign_id);
+    end;
+end;
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+create or replace function insertarOrden(c_foreign_id number, nombre_var varchar) return number as
+
+foreign_id number;
+
+begin
+
+select id_orden into foreign_id from orden where nombre = nombre_var; 
+return (foreign_id);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    insert into orden(nombre, id_clase) values (nombre_var, c_foreign_id);
+    select id_orden into foreign_id from orden where nombre = nombre_var; 
+    return (foreign_id);
+    end;
+end;
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+create or replace function insertarFamilia(o_foreign_id number, nombre_var varchar) return number as
+
+foreign_id number;
+
+begin
+
+select id_fam into foreign_id from familia where nombre = nombre_var; 
+return (foreign_id);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    insert into familia(nombre, id_orden) values (nombre_var, o_foreign_id);
+    select id_fam into foreign_id from familia where nombre = nombre_var; 
+    return (foreign_id);
+    end;
+end;
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+create or replace function insertarGenero(f_foreign_id number, nombre_var varchar) return number as
+
+foreign_id number;
+
+begin
+
+select id_gen into foreign_id from genero where nombre = nombre_var; 
+return (foreign_id);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    insert into genero(nombre, id_fam) values (nombre_var, f_foreign_id);
+    select id_gen into foreign_id from genero where nombre = nombre_var; 
+    return (foreign_id);
+    end;
+end;
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+-- ########################################################################
+
+create or replace function getNombreCientifico(id_gen_key number) return number as
+
+nombre_esp varchar(50);
+
+begin
+
+select concat(g.nombre,e.nombre) into nombre_esp
+from especie e, genero g
+where g.id_gen = id_gen_key and e.id_esp = id_gen_key; 
+return (nombre);
+
+EXCEPTION WHEN NO_DATA_FOUND THEN
+    begin
+    
+    return ("null");
+    end;
+end;
+
+
+-------------------------------------------------------------------
+create or replace view vista_taxon as (
+
+    select t.id_taxon, r.nombre_reino, fi.nombre_filo, c.nombre_clase, 
+    o.nombre_orden, fa.nombre_familia, g.nombre_genero, e.nombre_especie
+    from taxon t, reino r, filo fi, clase c,
+    orden o, familia fa, genero g, especie e
+    where t.id_taxon = r.id_taxon and 
+    r.id_reino = fi.id_reino and 
+    fi.id_filo = c.id_filo and 
+    c.id_clase = o.id_clase and
+    o.id_orden = fa.id_orden and
+    fa.id_familia = g.id_familia and
+    g.id_genero = e.id_genero
+);
+
+create or replace function obtener_nombreCientifico(id_t number) 
+return varchar2 as
+
+    declare
+
+    genero varchar;
+    especie varchar;
+    nombre_cientifico varchar;
+    
+    BEGIN 
+
+        select nombre_especie, nombre_genero from vista_taxon where id_taxon = id_t;
+        genero := vista_taxon.nombre_genero;
+        especie := vista_taxon.nombre_especie;
+        nombre_cientifico := "El nombre cientifico es: " || genero || " " || especie;
+
+        return nombre_cientifico;
+        
+    end obtener_nombreCientifico;
+	

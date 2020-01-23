@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+<link rel="stylesheet" type="text/css" href="CSS/switch.css">
+<link rel="stylesheet" type="text/css" href="CSS/select.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+
+<body> 
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<div id="header"></div>
+<br>
+<div class="formEditar">
+<h1>Empleado</h1>
+
+<form  action="actualizarEmpleado.php" align="center">
+
+	
+	<input type="text" name="cedulaE" placeholder="Cedula" />
+	 
+	<br>
+	<br>
+	<br>
+	
+	<input type="text" name="salario" placeholder="Salario" />
+	
+	<label class="switch">
+		<input type="checkbox" name="checkSalario">
+		<span class="slider"></span>
+	</label><br>
+	
+	<input type="text" name="nombre" placeholder="Nombre" />
+	
+	<label class="switch">
+		<input type="checkbox" name="checkNombre">
+		<span class="slider"></span>
+	</label><br>
+	 	
+	<input type="text" name="telefono" placeholder="Telefono" />
+	
+	<label class="switch">
+		<input type="checkbox" name="checkTelefono">
+		<span class="slider"></span>
+	</label><br>
+	
+	<input type="text" name="dir" placeholder="Direccion" />
+	
+	<label class="switch">
+		<input type="checkbox" name="checkDir">
+		<span class="slider"></span>
+	</label><br>
+	
+	<input id="date" type="date" name="FN">
+	
+	<label class="switch">
+		<input type="checkbox" name="checkFecha">
+		<span class="slider"></span>
+	</label><br>
+	
+	<button class="boton">Actualizar</button>  
+	</form>
+</div>
+
+<div id="footer"></div>
+
+</body>
+</html>

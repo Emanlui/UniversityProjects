@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+
+  <title>Insertar Departamento</title>
+  <link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+    <link rel="stylesheet" type="text/css" href="CSS/select.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body>
+<div id="header"></div>
+<div class="formEditar">
+<br>
+<h1>Departamento</h1>
+<form  action="insertarDepartamento.php" align="center">
+	<input type="text" name="nombre" placeholder="Nombre" /><br>
+	<input type="text" name="codigo" placeholder="Codigo" /><br>
+	<input type="text" name="descripcion" placeholder="Descripcion" /><br>
+	<input type="text" name="telefono" placeholder="Numero telefonico" /><br>
+		
+	 <br>
+	<button class="boton">Insertar</button>  
+	</form>
+</div>
+
+</body>
+<div id="footer"></div>
+</html>
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+
+	<title>Actualizar Tipo Producto</title>
+	<link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+	<link rel="stylesheet" type="text/css" href="CSS/switch.css">
+	<link rel="stylesheet" type="text/css" href="CSS/select.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body>
+
+<div id="header"></div>
+<br>
+<div class="formEditar">
+<h1>Tipo Producto</h1>
+<form  action="actualizarTipoProducto.php" align="center">
+	
+	<br>
+	
+	<input type="text" name="cod" placeholder="Codigo" />
+	
+	<br>
+	<br>
+	<br>
+	
+	<input type="text" name="desc" placeholder="Descripcion" />
+	
+	<label class="switch">
+		<input type="checkbox" name="checkNumero">
+		<span class="slider"></span>
+	</label><br>
+	
+	<input type="text" name="marca" placeholder="Marca" />
+	
+	<label class="switch">
+		<input type="checkbox" name="checkDir">
+		<span class="slider"></span>
+	</label><br>
+	
+	<button class="boton">Actualizar</button>  
+	</form>
+</div>
+<div id="footer"></div>
+</body>
+
+
+</html>

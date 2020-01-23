@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+<link rel="stylesheet" type="text/css" href="CSS/select.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body> 
+<div id="header"></div>
+<div class="formEditar">
+<br>
+<h1>Empleado</h1>
+<form  action="insertarEmpleado.php" align="center">
+		<input type="text" name="cedulaE" placeholder="Cedula" /><br>
+		<input type="text" name="salario" placeholder="Salario" /><br>
+		<input type="text" name="nombre" placeholder="Nombre" /><br>
+		<input type="text" name="telefono" placeholder="Telefono" /><br>
+		<input type="radio" name="gender" value="hombre" checked> Hombre<br>
+		<input type="radio" name="gender" value="mujer"> Mujer<br><br>
+		<input type="text" name="dir" placeholder="Direccion" /><br>
+		<input id="date" type="date" name="FN"><br>
+
+
+		<div class="centro" align = "center">
+	
+		<div class="select">
+	
+			<select name = "cedulaS">
+		   
+					<?php
+						require("conexion.php");
+			
+						$consulta="SELECT * FROM empleado";
+						$resultado=pg_query($conexion,$consulta);
+				 
+						echo '<option value= ".  1  "' . '  > Cedula empleado</option>';
+				 
+						while($fila=pg_fetch_object($resultado)){
+							$data = $fila -> cedula_empleado;
+							echo "<option value= $data>";
+							echo $data;
+							echo '</option>';
+						}
+						pg_close($conexion);
+						
+						?>	
+		   
+			
+			</select>		
+		
+		</div><br>
+		
+		<div class="centro" align = "center">
+	
+		<div class="select">
+	
+			<select name = "codigo">
+		   
+					<?php
+						require("conexion.php");
+			
+						$consulta="SELECT * FROM sucursal";
+						$resultado=pg_query($conexion,$consulta);
+				 
+						echo '<option value= ".  default  "' . '  > Sucursal</option>';
+				 
+						while($fila=pg_fetch_object($resultado)){
+							$data = $fila -> codigo_sucursal;
+							echo "<option value= $data>";
+							echo $data;
+							echo '</option>';
+						}
+						pg_close($conexion);
+						
+						?>	
+		   
+			
+			</select>		
+		
+		</div><br>
+		<br>
+	 
+		<div class="select">
+	
+			<select name = "departamento">
+		   
+					<?php
+						require("conexion.php");
+			
+						$consulta="SELECT * FROM departamento";
+						$resultado=pg_query($conexion,$consulta);
+				 
+						echo '<option value= ".  default  "' . '  > Nombre del departamento </option>';
+				 
+						while($fila=pg_fetch_object($resultado)){
+							$data = $fila -> nombre_departamento;
+							echo "<option value= $data>";
+							echo $data;
+							echo '</option>';
+						}
+						pg_close($conexion);
+						
+						?>	
+		   
+			
+			</select>		
+		
+		</div><br>
+	 
+	
+	
+	<button class="boton">Insertar</button>  
+	</form>
+</div>
+
+
+
+	
+</body> 
+<div id="footer"></div>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+ 
+
+<head>
+	<title>Menu principal</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body>
+
+<div id="main">
+
+<div id="header"></div>
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 5</div>
+  <img src="fotos/foto1.jpg" style="width:100%">
+  
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 5</div>
+  <img src="fotos/foto2.jpg" style="width:100%">
+  
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 5</div>
+  <img src="fotos/foto3.jpg" style="width:100%">
+  
+</div>
+
+
+<div class="mySlides fade">
+  <div class="numbertext">4 / 5</div>
+  <img src="fotos/foto4.jpg" style="width:100%">
+  
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">5 / 5</div>
+  <img src="fotos/foto5.jpg" style="width:100%">
+ 
+</div>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+  <div id="navegadorLateral" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="cerrarNavegador()">&times;</a>
+  <a href="#">- 83195042</a>
+  <a href="#">- emanuelle@gmail.com</a>
+  <a href="#">- fabrizio@gmail.com</a>
+  <a href="#">- soporteSuper@gmail.com</a>
+  <a href="#">- 28370189</a>
+</div> 
+<div id="footer"></div>
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 4000); // Change image every 2 seconds
+}
+</script>
+
+
+
+</body>
+</html>

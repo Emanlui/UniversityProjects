@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+
+  <title>Insertar Horario</title>
+  <link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+    <link rel="stylesheet" type="text/css" href="CSS/select.css">
+	<link rel="stylesheet" type="text/css" href="CSS/tabla.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body>
+<div id="header"></div>
+<div class="formEditar">
+<br>
+<h1>Horario</h1>
+<form  method="post" align="center">
+	
+	<input type="text" name="busqueda" id="INombre"  placeholder="Buscar.."><br>
+	
+	 <div class="centro" align = "center">
+		
+	 <br>
+	<button class="boton" name="Entrar">Entrar</button>  
+	<button class="boton" name="Salir">Salir</button>  
+	<button class="boton" name="Mostrar">Mostrar todos los empleado</button>  
+	 <br>
+	 <br>
+	</form>
+</div>
+
+<?php 
+
+	function InsertarEntrada(){
+	
+		$busqueda =  $_POST["busqueda"];
+	    
+		$tiempoActual=time();
+		$tiempoTemp = date("Y-m-d h:m:s",$tiempoActual);
+		
+		
+		require("conexion.php");
+
+		if(strpos($busqueda, 'select') !== FALSE || strpos($busqueda, 'from')!== FALSE || strpos($busqueda, 'update') !== FALSE || strpos($busqueda, 'delete') !== FALSE ){
+				$msg = "SQL INJECTION detectado";
+				echo "<script type='text/javascript'>alert('$msg');</script>";
+			}else if (!empty($busqueda)) {
+				
+				$consulta="UPDATE horario SET horallegada = '$tiempoTemp' WHERE cedula_empleado = '$busqueda'";
+				$resultado=pg_query($conexion,$consulta);
+
+				pg_close($conexion);
+
+			}
+	
+	}
+	
+	function InsertarSalida(){
+	
+		$busqueda =  $_POST["busqueda"];
+	    
+		$tiempoActual=time();
+		$tiempoTemp = date("Y-m-d h:m:s",$tiempoActual);
+		
+		
+		require("conexion.php");
+
+		if(strpos($busqueda, 'select') !== FALSE || strpos($busqueda, 'from')!== FALSE || strpos($busqueda, 'update') !== FALSE || strpos($busqueda, 'delete') !== FALSE ){
+				$msg = "SQL INJECTION detectado";
+				echo "<script type='text/javascript'>alert('$msg');</script>";
+			}else if (!empty($busqueda)) {
+				
+				$consulta="UPDATE horario SET horasalida = '$tiempoTemp' WHERE cedula_empleado = '$busqueda'";
+				$resultado=pg_query($conexion,$consulta);
+
+				pg_close($conexion);
+
+			}
+	}
+	
+	function MostrarEmpleados(){
+			
+			require("conexion.php");
+
+			$consulta=" Select empleado.cedula_empleado,empleado.codigo_sucursal,empleado.nombre,empleado.telefono,empleado.direccion,horario.horasalida,horario.horallegada
+						From empleado, horario
+						Where empleado.cedula_empleado = horario.cedula_empleado";
+						
+			$resultado=pg_query($conexion,$consulta);
+			
+			
+				echo '<table class="table-fill">';
+				echo '<thead>';
+				echo '<tr>';
+				echo '<th class="text-left">Cedula del empleado</th>';
+				echo '<th class="text-left">Sucursal en donde trabaja</th>';
+				echo '<th class="text-left">Nombre</th>';
+				echo '<th class="text-left">Telefono</th>';
+				echo '<th class="text-left">Direccion</th>';
+				echo '<th class="text-left">Hora de salida</th>';
+				echo '<th class="text-left">Hora de llegada</th>';
+				echo '</tr>';
+				echo '</thead>';
+				echo '<tbody class="table-hover">';
+			
+			while($fila=pg_fetch_object($resultado)){
+				
+			
+				echo '<tr> ';
+				echo '<td class="text-left">' ;
+				echo  $fila->cedula_empleado;
+				echo '</td>';
+				echo '<td class="text-left">' ;
+				echo  $fila->codigo_sucursal;
+				echo '</td>';
+				echo '<td class="text-left">' ;
+				echo  $fila->nombre;
+				echo '</td>';
+				echo '<td class="text-left">' ;
+				echo  $fila->telefono;
+				echo '</td>';
+				echo '<td class="text-left">' ;
+				echo  $fila->direccion;
+				echo '</td>';
+				echo '<td class="text-left">' ;
+				echo  $fila->horasalida;
+				echo '</td>';
+				echo '<td class="text-left">' ;
+				echo  $fila->horallegada;
+				echo '</td>';
+		
+			echo '</tr>';
+			}
+			
+			echo '</tbody>';
+			echo '</table>';
+			pg_close($conexion);
+
+			
+		
+		}
+
+	if(array_key_exists('Entrar',$_POST)){
+	   InsertarEntrada();
+	}
+	if(array_key_exists('Salir',$_POST)){
+	   InsertarSalida();
+	}
+	if(array_key_exists('Mostrar',$_POST)){
+	   MostrarEmpleados();
+	}
+
+?>
+</body>
+<div id="footer"></div>
+</html>
+

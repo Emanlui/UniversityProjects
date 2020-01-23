@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+
+  <title>Eliminar Tipo Producto</title>
+  <link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body>
+<div id="header"></div>
+<div class="formEditar">
+<br>
+<h1>Tipo Producto</h1>
+<form  action="eliminarTipoProducto.php" align="center">
+	<input type="text" name="busqueda" placeholder="Digite el codigo:" /><br>
+	<button class="boton" style="vertical-align:middle"><span> Eliminar </span></button>
+	</form>
+</div>
+
+</body>
+<div id="footer"></div>
+
+</html>

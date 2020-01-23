@@ -1,0 +1,13 @@
+create or replace trigger bitacoraSS
+before insert or update or delete on species_page
+for each row
+begin
+case
+when inserting then
+    insert into auditoria (usuario,fecha,operacion) values (user, sysdate, 'insert');
+when updating then
+    insert into auditoria (usuario,fecha,operacion) values (user, sysdate, 'update');
+when deleting then
+    insert into auditoria (usuario,fecha,operacion) values (user, sysdate, 'delete');
+end case;
+end;

@@ -1,0 +1,246 @@
+
+CREATE FUNCTION public.actualizar_numeroproveedor() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+
+    UPDATE proveedor
+    SET numero = "800123"
+    WHERE numero = null;
+
+    END;
+$$;
+
+CREATE FUNCTION public.asignar_horario(cedula integer) RETURNS void   
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+      INSERT INTO horario VALUES (cedula, '2018-01-10 8:00:00', '2018-12-15 20:00:00');
+    END;
+    $$;
+	
+CREATE FUNCTION public.asignar_encargado() RETURNS void   
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		UPDATE sucursal
+		SET nombreencargado = "Fabrizio Alvarado"
+		WHERE nombreenccargado = null;
+    END;
+    $$;	
+
+CREATE FUNCTION public.borrar_empleado() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		DELETE FROM empleado
+		WHERE cedula_empleado is null;
+    END;
+    $$;
+
+CREATE FUNCTION public.borrar_tipoproducto() RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		DELETE FROM tipoproducto
+		WHERE codigo_tipoproducto is null;
+    END;
+    $$;
+
+CREATE TABLE public.departamento (
+    nombre_departamento character varying(50) NOT NULL,
+    codigo_sucursal integer NOT NULL,
+    descripcion character varying(100) DEFAULT NULL::character varying,
+    numerotelefonico integer
+);
+
+CREATE TABLE public.departamentoempleado (
+    cedula_empleado integer NOT NULL,
+    nombre_departamento character varying(50) NOT NULL
+);
+
+
+CREATE TABLE public.empleado (
+    cedula_empleado integer NOT NULL,
+    cedulajefe_empleado integer NOT NULL,
+    codigo_sucursal integer NOT NULL,
+    salario integer,
+    nombre character varying(50) DEFAULT NULL::character varying,
+    sexo character varying(11) DEFAULT NULL::character varying,
+    telefono integer,
+    direccion character varying(100) DEFAULT NULL::character varying,
+    fechanacimiento date
+);
+
+CREATE TABLE public.sucursal (
+    codigo_sucursal serial,
+    nombreencargado character varying(50) DEFAULT NULL::character varying,
+    canton character varying(50) DEFAULT NULL::character varying
+);
+
+CREATE MATERIALIZED VIEW public.asociarempleados AS
+ SELECT e.nombre,
+    s.codigo_sucursal,
+    d.nombre_departamento
+   FROM public.empleado e,
+    public.sucursal s,
+    public.departamento d,
+    public.departamentoempleado de
+  WHERE ((e.cedula_empleado = de.cedula_empleado) AND ((de.nombre_departamento)::text = (d.nombre_departamento)::text) AND (e.codigo_sucursal = s.codigo_sucursal) AND (d.codigo_sucursal = s.codigo_sucursal))
+  WITH NO DATA;
+
+CREATE TABLE public.horario (
+    cedula_empleado integer NOT NULL,
+    horasalida timestamp without time zone,
+    horallegada timestamp without time zone
+);
+
+CREATE TABLE public.producto (
+    codigo_producto serial,
+    codigo_tipoproducto integer NOT NULL,
+    nombre character varying(50) DEFAULT NULL::character varying,
+    precio integer
+);
+
+CREATE TABLE public.proveedor (
+    numero integer,
+    ubicacion character varying(50) DEFAULT NULL::character varying,
+    nombre_proveedor character varying(50) NOT NULL
+);
+
+CREATE TABLE public.proveedortipoproducto (
+    codigo_tipoproducto integer NOT NULL,
+    nombre_proveedor character varying(50) NOT NULL
+);
+
+CREATE TABLE public.sucursaltipoproducto (
+    codigo_sucursal integer NOT NULL,
+    codigo_tipoproducto integer NOT NULL
+);
+
+CREATE TABLE public.tipoproducto (
+    codigo_tipoproducto serial,
+    descripcion character varying(100) DEFAULT NULL::character varying,
+    marca character varying(25) DEFAULT NULL::character varying
+);
+
+INSERT INTO public.departamento VALUES ('Limpieza', 1, 'Limpian las sucursales', 852145698);
+INSERT INTO public.departamento VALUES ('Cajas', 2, 'Cobran dinero', 85316497);
+INSERT INTO public.departamento VALUES ('Gerencia', 3, 'Dirigen a los demas departamentos', 84316498);
+
+INSERT INTO public.departamentoempleado VALUES (207880433, 'Gerencia');
+INSERT INTO public.departamentoempleado VALUES (207880433, 'Limpieza');
+INSERT INTO public.departamentoempleado VALUES (207880433, 'Limpieza');
+
+INSERT INTO public.empleado VALUES (207880433, 207880433, 1, 5000000, 'Fabrizio Alvarado', 'hombre', 852145698, '250 sur de Rosvil', '1999-02-05');
+INSERT INTO public.empleado VALUES (207910263, 207880433, 2, 200000, 'Emanuelle Jimenez', 'hombre', 85216489, '100 norte del parque', '1999-08-15');
+INSERT INTO public.empleado VALUES (204690135, 207880433, 3, 999000000, 'Adriana Lucia', 'mujer', 24975368, 'Detras de la iglesia', '1999-07-30');
+
+INSERT INTO public.horario VALUES (207880433, '2018-06-07 20:00:00', '2018-06-07 8:00:00');
+INSERT INTO public.horario VALUES (207910263, '2018-06-07 20:00:00', '2018-06-07 8:00:00');
+INSERT INTO public.horario VALUES (204690135, '2018-06-07 20:00:00', '2018-06-07 8:00:00');
+
+INSERT INTO public.proveedor VALUES (20528592, 'Grecia', 'Juan Perez');
+INSERT INTO public.proveedor VALUES (20909764, 'Santa Barbara', 'Juan Gonzales');
+INSERT INTO public.proveedor VALUES (20316497, 'San Jose', 'Juan Ramirez');
+
+INSERT INTO public.proveedortipoproducto VALUES (10, 'Juan Perez');
+INSERT INTO public.proveedortipoproducto VALUES (20, 'Juan Gonzales');
+INSERT INTO public.proveedortipoproducto VALUES (30, 'Juan Ramirez');
+
+INSERT INTO public.sucursal VALUES (1, 'Jesus Sanchez', 'Alajuela');
+INSERT INTO public.sucursal VALUES (2, 'David Gonzales', 'Heredia');
+INSERT INTO public.sucursal VALUES (3, 'Dylan Ramirez', 'Limon');
+
+INSERT INTO public.sucursaltipoproducto VALUES (1, 10);
+INSERT INTO public.sucursaltipoproducto VALUES (2, 20);
+INSERT INTO public.sucursaltipoproducto VALUES (3, 30);
+
+INSERT INTO public.tipoproducto VALUES (10, 'Jugos', 'Hi-c');
+INSERT INTO public.tipoproducto VALUES (20, 'Carnes', 'Angus');
+INSERT INTO public.tipoproducto VALUES (30, 'Lacteos', 'Dos Pinos');
+
+INSERT INTO public.producto VALUES (100, 10, 'Jugo de pera', 350);
+INSERT INTO public.producto VALUES (200, 20, 'Res', 3000 );
+INSERT INTO public.producto VALUES (300, 30, 'Leche', 600 );
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT cedula_empleado PRIMARY KEY (cedula_empleado);
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT codigo_producto PRIMARY KEY (codigo_producto);
+
+ALTER TABLE ONLY public.sucursal
+    ADD CONSTRAINT codigo_sucursal PRIMARY KEY (codigo_sucursal);
+
+ALTER TABLE ONLY public.tipoproducto
+    ADD CONSTRAINT codigo_tipoproducto PRIMARY KEY (codigo_tipoproducto);
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT departamento_pkey PRIMARY KEY (nombre_departamento);     
+
+ALTER TABLE ONLY public.proveedor
+    ADD CONSTRAINT nombre_proveedor PRIMARY KEY (nombre_proveedor);
+
+CREATE INDEX departamento_fk1 ON public.departamento USING btree (codigo_sucursal);
+
+CREATE INDEX departamentoempleado_fk1 ON public.departamentoempleado USING btree (cedula_empleado);
+
+CREATE INDEX departamentoempleado_fk2 ON public.departamentoempleado USING btree (nombre_departamento);
+
+CREATE INDEX empleado_fk1 ON public.empleado USING btree (codigo_sucursal);
+
+CREATE INDEX empleado_fk2 ON public.empleado USING btree (cedulajefe_empleado);
+
+CREATE INDEX horario_fk1 ON public.horario USING btree (cedula_empleado);
+
+CREATE INDEX ordenar_cedula ON public.empleado USING btree (cedula_empleado);     
+
+CREATE INDEX ordenar_nombre ON public.producto USING btree (nombre);            
+
+CREATE INDEX ordenar_tipoproducto ON public.tipoproducto USING btree (codigo_tipoproducto);     
+
+CREATE INDEX producto_fk1 ON public.producto USING btree (codigo_tipoproducto);
+
+CREATE INDEX proveedortipoproducto_fk1 ON public.proveedortipoproducto USING btree (codigo_tipoproducto);
+
+CREATE INDEX proveedortipoproducto_fk2 ON public.proveedortipoproducto USING btree (nombre_proveedor);
+
+CREATE INDEX sucursaltipoproducto_fk1 ON public.sucursaltipoproducto USING btree (codigo_sucursal);
+
+CREATE INDEX sucursaltipoproducto_fk2 ON public.sucursaltipoproducto USING btree (codigo_tipoproducto);
+
+ALTER TABLE ONLY public.departamento
+    ADD CONSTRAINT departamento_fk1 FOREIGN KEY (codigo_sucursal) REFERENCES public.sucursal(codigo_sucursal) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.departamentoempleado
+    ADD CONSTRAINT departamentoempleado_fk1 FOREIGN KEY (cedula_empleado) REFERENCES public.empleado(cedula_empleado) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.departamentoempleado
+    ADD CONSTRAINT departamentoempleado_fk2 FOREIGN KEY (nombre_departamento) REFERENCES public.departamento(nombre_departamento) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT empleado_fk1 FOREIGN KEY (codigo_sucursal) REFERENCES public.sucursal(codigo_sucursal) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.empleado
+    ADD CONSTRAINT empleado_fk2 FOREIGN KEY (cedulajefe_empleado) REFERENCES public.empleado(cedula_empleado) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.horario
+    ADD CONSTRAINT horario_fk1 FOREIGN KEY (cedula_empleado) REFERENCES public.empleado(cedula_empleado) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.producto
+    ADD CONSTRAINT producto_fk1 FOREIGN KEY (codigo_tipoproducto) REFERENCES public.tipoproducto(codigo_tipoproducto) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.proveedortipoproducto
+    ADD CONSTRAINT proveedortipoproducto_fk1 FOREIGN KEY (codigo_tipoproducto) REFERENCES public.tipoproducto(codigo_tipoproducto) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.proveedortipoproducto
+    ADD CONSTRAINT proveedortipoproducto_fk2 FOREIGN KEY (nombre_proveedor) REFERENCES public.proveedor(nombre_proveedor) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.sucursaltipoproducto
+    ADD CONSTRAINT sucursaltipoproducto_fk1 FOREIGN KEY (codigo_sucursal) REFERENCES public.sucursal(codigo_sucursal) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.sucursaltipoproducto
+    ADD CONSTRAINT sucursaltipoproducto_fk2 FOREIGN KEY (codigo_tipoproducto) REFERENCES public.tipoproducto(codigo_tipoproducto) ON UPDATE RESTRICT ON DELETE CASCADE;
+
+REFRESH MATERIALIZED VIEW public.asociarempleados;

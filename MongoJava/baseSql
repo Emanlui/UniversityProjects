@@ -1,0 +1,73 @@
+create table reino(
+	id_reino NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	nombre varchar(70)
+)
+
+create table filo(
+	id_filo NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	id_reino references reino(id_reino),
+	nombre varchar(70)
+)
+
+create table clase(
+	id_clase NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	id_filo references filo(id_filo),
+	nombre varchar(70)
+)
+
+create table orden(
+	id_orden NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	id_clase references clase(id_Clase),
+	nombre varchar(70)
+)
+
+create table familia(
+	id_fam NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	id_orden references orden(id_orden),
+	nombre varchar(70)
+)
+
+create table genero(
+	id_gen NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	id_fam references familia(id_fam),
+	nombre varchar(70)
+)
+
+create table especie(
+	id_esp NUMBER GENERATED AS IDENTITY PRIMARY KEY,
+	id_gen references genero(id_gen),
+	nombre varchar(50)
+)
+
+create table status(
+	id_esp number references especie(id_esp),
+	nombre varchar(20)
+)
+
+create table species_page(
+	id_esp NUMBER references especie(id_esp),
+	descripcion varchar(200),
+	cientifico varchar(50)
+)
+
+
+create table auditoria(
+	usuario varchar(50),
+	fecha date,
+	operacion varchar(10),
+	
+)
+
+
+create table tablaTemp(
+	kingdom varchar(70),
+	phylum varchar(70),
+	class varchar(70),
+	order_ varchar(70),
+	family varchar(70),
+	scientific_name varchar(70),
+	full_description_unstructured varchar(500),
+	habitat_unstructure varchar(500)
+)
+
+

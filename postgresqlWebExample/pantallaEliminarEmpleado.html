@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="CSS/estilo.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<script>
+	$(function() {
+	$("#header").load("header.html");
+	});
+	
+	$(function() {
+	$("#footer").load("footer.html");
+	});
+
+</script>
+
+<body> 
+<div id="header"></div>
+<div class="formEditar">
+<br>
+<h1>Empleado</h1>
+<form  action="eliminarEmpleado.php" align="center">
+	<input type="text" name="busqueda" placeholder="Cedula del empleado" /><br>
+	<button class="boton">Eliminar</button>  
+	</form>
+</div>
+ 
+</body>
+<div id="footer"></div>
+</html>
