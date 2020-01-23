@@ -1,0 +1,42 @@
+<%- include ('partials/header.ejs'); -%>
+<div class="container">
+    <% if (message) { %>
+        <p class="text-center text-danger"><%= message %></p>
+    <% } %>
+
+    <script>
+
+        let variableLocation = <%- JSON.stringify(locations) %>;
+        localStorage.setItem('locations', JSON.stringify(variableLocation));
+
+    </script>
+
+    <% if (route) { %>
+        <form class="add-employee-form" action="" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+               
+                <div class="form-group col-md-4">
+                    <label for="first-name">Id</label>
+                    <input type="text" class="form-control" name="id" id="id" value="<%= route.id %>" required disabled title="Id cannot be edited.>
+                    <label for="last-name">Route name</label>
+                    <input type="text" class="form-control" name="name_of_route" id="name_of_route" value="<%= route.name_of_route %>" required disabled title="Name of the route cannot be edited.>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" name="long_location" id="long_location" placeholder="long_location" required>
+                    <input type="text" class="form-control" name="lat_location" id="lat_location" placeholder="lat_location" required>
+                    <button type="submit" class="btn btn-success float-right">Add location</button>
+                </div>
+                
+            </div>
+        </form>
+    <% } else { %>
+        <p class="text-center">Route not found. Go to <a href="/">here</a> to add the route.</p>
+    <% } %>
+</div>
+    <div id='map'> </div>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src="/addLocation.js"></script>
+</div>
+</body>
+</html>

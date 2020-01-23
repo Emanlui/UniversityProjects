@@ -1,0 +1,49 @@
+<%- include ('partials/header.ejs'); -%>
+    <div class="table-wrapper">
+        <% if (routes.length > 0) {%>
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Number of route</th>
+                        <th scope="col">Longitude start</th>
+                        <th scope="col">Latitude start</th>
+                        <th scope="col">Longitud Finish</th>
+                        <th scope="col">Latitude Finish</th>
+                        <th scope="col">Name of the route</th>
+                        <th scope="col">Delete option</th>
+                        <th scope="col">Add new location option</th>
+                        <th scope="col">Routes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% routes.forEach((route, index) => { %>
+                        <tr>
+                            <th scope="row"><%= route.id %></th>
+                            <td><%= route.number_of_route %></td>
+                            <td><%= route.longStart %></td>
+                            <td><%= route.latStart %></td>
+                            <td><%= route.longFinish %></td>
+                            <td><%= route.latFinish %></td>
+                            <td><%= route.name_of_route %></td>
+                            <td>
+                                <a href="/delete/<%= route.id %>" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                            <td>
+                                <a href="/addLocation/<%= route.id %>" class="btn btn-sm btn-danger">Add</a>
+                            </td>
+                            <td>
+                                <a href="/showRoute/<%= route.id %>" class="btn btn-sm btn-danger">Show route</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="text-center">No employees found. Go <a href="/add" >here</a> to add employees.</p>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>
+

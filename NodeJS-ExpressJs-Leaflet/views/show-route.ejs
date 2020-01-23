@@ -1,0 +1,44 @@
+<%- include ('partials/header.ejs'); -%>
+    
+     <script>
+        let variableLocation = <%- JSON.stringify(locations) %>;
+        localStorage.setItem('locations', JSON.stringify(variableLocation));
+
+        let variableRoute = <%- JSON.stringify(route) %>;
+        localStorage.setItem('route', JSON.stringify(variableRoute));
+    </script>
+
+    <div class="table-wrapper">
+        <% if (route.length > 0) {%>
+            <% route.forEach((r, index) => { %>
+            <h1 align="center"> <%= r.name_of_route %> </h1>
+            <% }) %>
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <th >Longitude</th>
+                    <th >Latitude</th>
+                </thead>
+                <tbody>
+                    <% locations.forEach((location, index) => { %>
+                        <td><%= location.long_location %></td>
+                        <td><%= location.lat_location %></td>
+                    </tr>
+                    <% }) %>
+                
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="text-center">No route found. Go <a href="/add" >here</a> to add a new route.</p>
+        <% } %>
+    </div>
+</div>
+
+    <div id='map'> </div>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="/leaflet.js"></script>
+    
+
+</body>
+
+</html>
