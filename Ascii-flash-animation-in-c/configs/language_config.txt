@@ -1,0 +1,34 @@
+1 (tiempo de inicio en segundos)
+10 (tiempo de finalizacion en segundos)
+http (protocolo de comunicacion)
+3 (# de monitores)
+001-256-511
+002-512-767 (orden y area de canvas de monitores)
+003-768-1024 
+inicio
+2 (scheduler a utilizar (Round-Robin=1 o Sorteo=2)) (descripcion de objetos)
+| | |x| | |
+| |x|x|x| |
+|x|x|x|x|x|  (forma)
+| |x|x|x| |
+| |x|x|x| |
+-
+1(scheduler a utilizar (Round-Robin o Sorteo) - tipo)
+| | |x| | |
+| | |x| | |
+|x|x|x|x|x|  (forma)
+| | |x| | | 
+| | |x| | |
+-
+1 (scheduler a utilizar (Round-Robin o Sorteo)) - tipo)
+|x| | | |x|
+| |x| |x| |
+| | |x| | |  (forma)
+| |x| |x| |
+|x| | | |x|
+fin
+5  (limite de espacio entre objetos)
+100-200 (posicion-inicial) 
+200-300 (posicion-final)    (descripcion de movimiento de objetos)
+0  (angulo-inicial)
+90  (angulo-final)

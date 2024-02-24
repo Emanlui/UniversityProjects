@@ -1,0 +1,9 @@
+correr contenedores
+docker-compose up -d
+
+detener contenedores
+docker-compose down
+
+eliminar contenedores
+docker-compose kill [contenedor]
+

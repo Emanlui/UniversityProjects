@@ -1,0 +1,62 @@
+#include "mythread.h" 
+
+int main()
+{
+
+	FILE *ptofile = fopen("configs/test.txt", "r");
+	
+	int line = 0;
+	
+	char input[64];
+	
+	int tiempo_de_inicio = atoi(fgets(input, 64, ptofile));
+	int tiempo_de_fin = atoi(fgets(input, 64, ptofile));
+	char *protocolo = fgets(input, 64, ptofile);
+	int numero_monitores = atoi(fgets(input, 64, ptofile));
+	
+	monitor_queue *monitors_list = (monitor_queue *) malloc(sizeof(monitor_queue));
+	monitors_list->size = 0;
+	monitors_list->head = NULL;
+	monitors_list->tail = NULL;
+	
+	for(int i=numero_monitores; i>0; i--){
+		
+		monitor_info *tmp_monitor = (monitor_info *) malloc(sizeof(monitor_info));
+		tmp_monitor->id = atoi(strtok(fgets(input, 64, ptofile), "-"));
+		tmp_monitor->canvas_area = atoi(strtok(NULL, "\n"));
+		
+		if(monitors_list->head == NULL){
+			tmp_monitor->prev = NULL;
+			tmp_monitor->next = NULL;
+
+			monitors_list->head = tmp_monitor;
+			monitors_list->tail = tmp_monitor;
+		}else{
+			
+			tmp_monitor->prev = monitors_list->tail;
+			monitors_list->tail->next = tmp_monitor;
+			monitors_list->tail = tmp_monitor;
+		}
+		monitors_list->size += 1;
+	}
+	
+	if(strcmp(strtok(fgets(input, 64, ptofile), "\n"), "inicio") == 0){ }
+	
+	
+	
+	while(1){
+		
+		if(strcmp(strtok(fgets(input, 64, ptofile), "\n"), "fin") == 0){
+			printf("llegue al fin \n");
+			break;
+		}else{
+			i
+		}
+	}
+	
+	//znasndonasopd
+	
+	fclose(ptofile);
+	
+	return 0;
+}

@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  owncloud:
+    image: owncloud
+    restart: always
+    ports:
+      - 1234:80
+    volumes:
+      - /home/ubuntu/Desktop/dockerCompose/OwnCloud/owncloud_data:/var/www/html
+      - /home/ubuntu/Desktop/dockerCompose/OwnCloud/owncloud_data/apps:/var/www/html/apps
+      - /home/ubuntu/Desktop/dockerCompose/OwnCloud/owncloud_data/config:/var/www/html/config
+      - /home/ubuntu/Desktop/dockerCompose/OwnCloud/owncloud_data/data:/var/www/html/data
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
